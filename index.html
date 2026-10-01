@@ -98,10 +98,10 @@
     }
 
     #app-container { position: relative; flex: 1; width: 100%; height: 100%; }
-    #map { width: 100%; height:t 100%; z-index: 10rip; background: #090d16; }
+    #map { width: 100%; height: 100%; z-index: 10; background: #090d16; }
 
     .hud-overlay {
-      position: absolute; top: -st14px; left: 14px; right: ats14px;
+      position: absolute; top: 14px; left: 14px; right: 14px;
       z-index: 500; pointer-events: none;
       display: flex; flex-direction: column; gap: 10px;
     }
@@ -168,8 +168,8 @@
       white-space: nowrap;
     }
     .badge-label.warning {
-      background: rgba(245, 158, 11, { 0.2);
-      color: var(--accent display-yellow);
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent-yellow);
       border-color: rgba(245, 158, 11, 0.4);
     }
     .badge-label.danger {
@@ -214,7 +214,7 @@
 
     .speed-unit { font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-    .: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text-muted); }
+    .trip-stats { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text-muted); }
     .stat-val { font-weight: 600; color: #fff; }
 
     .btn-hud-action {
@@ -673,4 +673,945 @@
       { id: "SP-001", state: "SP", road: "Marginal Tietê (Pista Expressa)", city: "São Paulo", lat: -23.5182, lng: -46.6341, speed: 90, type: "Fixo" },
       { id: "SP-002", state: "SP", road: "Marginal Tietê (Pista Local - Ponte Casa Verde)", city: "São Paulo", lat: -23.5123, lng: -46.6548, speed: 50, type: "Fixo" },
       { id: "SP-003", state: "SP", road: "Marginal Pinheiros (Próx. Ponte Estaiada)", city: "São Paulo", lat: -23.6125, lng: -46.6991, speed: 70, type: "Fixo" },
-      { id: "SP-004", state: "SP", road: "Marginal Pinheiros (Pista Expressa - Cidade Jardim)", city: "São
+      { id: "SP-004", state: "SP", road: "Marginal Pinheiros (Pista Expressa - Cidade Jardim)", city: "São Paulo", lat: -23.5852, lng: -46.6914, speed: 90, type: "Fixo" },
+      { id: "SP-005", state: "SP", road: "Av. 23 de Maio (Viaduto Santa Generosa)", city: "São Paulo", lat: -23.5784, lng: -46.6432, speed: 60, type: "Fixo" },
+      { id: "SP-006", state: "SP", road: "Av. Paulista (Cruzamento Brigadeiro)", city: "São Paulo", lat: -23.5678, lng: -46.6491, speed: 50, type: "Semáforo" },
+      { id: "SP-007", state: "SP", road: "Rodovia dos Bandeirantes (SP-348 - km 28)", city: "Jundiaí", lat: -23.3289, lng: -46.8524, speed: 120, type: "Fixo" },
+      { id: "SP-008", state: "SP", road: "Rodovia dos Bandeirantes (SP-348 - km 56)", city: "Jundiaí", lat: -23.2104, lng: -46.9142, speed: 120, type: "Móvel" },
+      { id: "SP-009", state: "SP", road: "Rodovia Anhanguera (SP-330 - km 19)", city: "Osasco", lat: -23.4912, lng: -46.7791, speed: 100, type: "Fixo" },
+      { id: "SP-010", state: "SP", road: "Rodovia Anhanguera (SP-330 - km 95)", city: "Campinas", lat: -22.9351, lng: -47.0984, speed: 110, type: "Fixo" },
+      { id: "SP-011", state: "SP", road: "Rodovia Castelo Branco (SP-280 - km 23)", city: "Barueri", lat: -23.5061, lng: -46.8621, speed: 100, type: "Fixo" },
+      { id: "SP-012", state: "SP", road: "Rodovia Castelo Branco (SP-280 - km 48)", city: "Araçariguama", lat: -23.4357, lng: -47.0421, speed: 120, type: "Fixo" },
+      { id: "SP-013", state: "SP", road: "Rodovia Ayrton Senna (SP-070 - km 19)", city: "Guarulhos", lat: -23.4862, lng: -46.4674, speed: 120, type: "Fixo" },
+      { id: "SP-014", state: "SP", road: "Rodovia Ayrton Senna (SP-070 - km 38)", city: "Itaquaquecetuba", lat: -23.4795, lng: -46.3015, speed: 120, type: "Fixo" },
+      { id: "SP-015", state: "SP", road: "Rodovia Pres. Dutra (BR-116 - km 220)", city: "Guarulhos", lat: -23.4684, lng: -46.4912, speed: 90, type: "Fixo" },
+      { id: "SP-016", state: "SP", road: "Rodovia Pres. Dutra (BR-116 - km 152)", city: "São José dos Campos", lat: -23.2081, lng: -45.8821, speed: 110, type: "Fixo" },
+      { id: "SP-017", state: "SP", road: "Rodovia dos Imigrantes (SP-160 - km 16)", city: "Diadema", lat: -23.6841, lng: -46.6120, speed: 100, type: "Fixo" },
+      { id: "SP-018", state: "SP", road: "Rodovia dos Imigrantes (SP-160 - km 42 - Serra)", city: "São Bernardo", lat: -23.8612, lng: -46.5418, speed: 80, type: "Fixo" },
+      { id: "SP-019", state: "SP", road: "Rodovia Anchieta (SP-150 - km 31)", city: "São Bernardo", lat: -23.7745, lng: -46.5512, speed: 90, type: "Fixo" },
+      { id: "SP-020", state: "SP", road: "Rodovia Régis Bittencourt (BR-116 - km 280)", city: "Embu das Artes", lat: -23.6521, lng: -46.8512, speed: 80, type: "Fixo" },
+      { id: "SP-021", state: "SP", road: "Rodovia Régis Bittencourt (BR-116 - km 340)", city: "Miracatu", lat: -24.2814, lng: -47.4521, speed: 60, type: "Fixo" },
+      { id: "SP-022", state: "SP", road: "Rodovia Dom Pedro I (SP-065 - km 128)", city: "Campinas", lat: -22.8421, lng: -47.0315, speed: 110, type: "Fixo" },
+      { id: "PR-001", state: "PR", road: "Linha Verde (BR-476 - km 138 Jardim Botânico)", city: "Curitiba", lat: -25.4618, lng: -49.2452, speed: 70, type: "Fixo" },
+      { id: "PR-002", state: "PR", road: "Linha Verde (BR-476 - Pinheirinho)", city: "Curitiba", lat: -25.5124, lng: -49.2841, speed: 70, type: "Fixo" },
+      { id: "PR-003", state: "PR", road: "BR-116 (Contorno Leste - km 88)", city: "São José dos Pinhais", lat: -25.5214, lng: -49.1984, speed: 100, type: "Fixo" },
+      { id: "PR-004", state: "PR", road: "BR-116 (Contorno Sul - km 112)", city: "Curitiba (CIC)", lat: -25.5342, lng: -49.3312, speed: 80, type: "Fixo" },
+      { id: "PR-005", state: "PR", road: "BR-277 (km 68 - Próx. Viaduto Afonso Pena)", city: "São José dos Pinhais", lat: -25.4842, lng: -49.1812, speed: 80, type: "Fixo" },
+      { id: "PR-006", state: "PR", road: "BR-277 (km 32 - Serra do Mar)", city: "Morretes", lat: -25.5512, lng: -48.8415, speed: 60, type: "Fixo" },
+      { id: "PR-007", state: "PR", road: "BR-277 (km 105 - Saída Ponta Grossa)", city: "Campo Largo", lat: -25.4312, lng: -49.5214, speed: 100, type: "Fixo" },
+      { id: "PR-008", state: "PR", road: "BR-376 (km 625 - Tijucas do Sul)", city: "Tijucas do Sul", lat: -25.8821, lng: -49.0712, speed: 80, type: "Fixo" },
+      { id: "PR-009", state: "PR", road: "BR-376 (km 668 - Curva da Santa / Serra)", city: "Guaratuba", lat: -25.9615, lng: -48.9612, speed: 60, type: "Fixo" },
+      { id: "PR-010", state: "PR", road: "Av. Comendador Franco (Av. das Torres)", city: "Curitiba", lat: -25.4715, lng: -49.2314, speed: 70, type: "Fixo" },
+      { id: "PR-011", state: "PR", road: "Av. Marechal Floriano Peixoto (Hauer)", city: "Curitiba", lat: -25.4795, lng: -49.2561, speed: 50, type: "Semáforo" },
+      { id: "PR-012", state: "PR", road: "BR-376 (Rodovia do Café - km 498)", city: "Ponta Grossa", lat: -25.1214, lng: -50.1415, speed: 100, type: "Fixo" },
+      { id: "PR-013", state: "PR", road: "BR-369 (km 154 - Acesso Cambé)", city: "Londrina", lat: -23.3012, lng: -51.2145, speed: 80, type: "Fixo" },
+      { id: "PR-014", state: "PR", road: "Av. Colombo (Cruzamento Mandacaru)", city: "Maringá", lat: -23.4112, lng: -51.9421, speed: 60, type: "Semáforo" },
+      { id: "PR-015", state: "PR", road: "BR-277 (Trecho Urbano - km 590)", city: "Cascavel", lat: -24.9781, lng: -53.4412, speed: 80, type: "Fixo" },
+      { id: "PR-016", state: "PR", road: "BR-277 (Portal de Entrada - km 725)", city: "Foz do Iguaçu", lat: -25.5120, lng: -54.5512, speed: 80, type: "Fixo" },
+      { id: "SC-001", state: "SC", road: "BR-101 (km 25 - Acesso Norte Joinville)", city: "Joinville", lat: -26.2341, lng: -48.8651, speed: 80, type: "Fixo" },
+      { id: "SC-002", state: "SC", road: "BR-101 (km 43 - Eixo Sul Joinville)", city: "Joinville", lat: -26.3681, lng: -48.8412, speed: 100, type: "Fixo" },
+      { id: "SC-003", state: "SC", road: "BR-101 (km 113 - Travessia Navegantes)", city: "Navegantes", lat: -26.8841, lng: -48.6721, speed: 80, type: "Fixo" },
+      { id: "SC-004", state: "SC", road: "BR-101 (km 122 - Trevo de Itajaí)", city: "Itajaí", lat: -26.9381, lng: -48.6812, speed: 80, type: "Fixo" },
+      { id: "SC-005", state: "SC", road: "BR-101 (km 137 - Morro do Boi)", city: "Balneário Camboriú", lat: -27.0142, lng: -48.6214, speed: 80, type: "Fixo" },
+      { id: "SC-006", state: "SC", road: "BR-101 (km 149 - Túnel de Itapema)", city: "Itapema", lat: -27.1041, lng: -48.6015, speed: 80, type: "Fixo" },
+      { id: "SC-007", state: "SC", road: "BR-101 (km 198 - Trevo Biguaçu)", city: "Biguaçu", lat: -27.4912, lng: -48.6541, speed: 100, type: "Fixo" },
+      { id: "SC-008", state: "SC", road: "BR-101 (km 208 - Trevo Via Expressa)", city: "São José", lat: -27.5852, lng: -48.6184, speed: 80, type: "Fixo" },
+      { id: "SC-009", state: "SC", road: "BR-282 (Via Expressa Continental)", city: "Florianópolis", lat: -27.5912, lng: -48.5841, speed: 80, type: "Fixo" },
+      { id: "SC-010", state: "SC", road: "Av. Beira-Mar Norte (Próx. Trapiche)", city: "Florianópolis", lat: -27.5841, lng: -48.5512, speed: 80, type: "Fixo" },
+      { id: "SC-011", state: "SC", road: "SC-401 (km 8 - Próx. Cacupé)", city: "Florianópolis", lat: -27.5214, lng: -48.5021, speed: 80, type: "Fixo" },
+      { id: "SC-012", state: "SC", road: "SC-405 (Acesso Novo Campeche/Aeroporto)", city: "Florianópolis", lat: -27.6712, lng: -48.5142, speed: 60, type: "Fixo" },
+      { id: "SC-013", state: "SC", road: "BR-101 (km 218 - Trevo de Palhoça)", city: "Palhoça", lat: -27.6481, lng: -48.6651, speed: 80, type: "Fixo" },
+      { id: "SC-014", state: "SC", road: "BR-101 (km 233 - Morro dos Cavalos)", city: "Palhoça", lat: -27.7812, lng: -48.6384, speed: 60, type: "Fixo" },
+      { id: "SC-015", state: "SC", road: "BR-470 (km 54 - Acesso Blumenau)", city: "Blumenau", lat: -26.8512, lng: -49.0841, speed: 80, type: "Fixo" },
+      { id: "SC-016", state: "SC", road: "BR-280 (km 58 - Trecho Guaramirim)", city: "Guaramirim", lat: -26.4681, lng: -49.0015, speed: 80, type: "Fixo" },
+      { id: "SC-017", state: "SC", road: "BR-101 (km 338 - Travessia Tubarão)", city: "Tubarão", lat: -28.4712, lng: -49.0215, speed: 100, type: "Fixo" },
+      { id: "SC-018", state: "SC", road: "BR-101 (km 385 - Trevo Criciúma/Içara)", city: "Içara", lat: -28.7124, lng: -49.3014, speed: 110, type: "Fixo" },
+      { id: "SC-019", state: "SC", road: "BR-282 (km 540 - Trevo Chapecó)", city: "Chapecó", lat: -27.0851, lng: -52.6214, speed: 80, type: "Fixo" }
+    ];
+
+    // ==================== ESTADO GLOBAL ====================
+    let radarDatabase = [];
+    let map = null;
+    let radarMarkersGroup = null;
+    let userMarker = null;
+    let userCircle = null;
+    let routeLine = null;
+
+    let userPosition = { lat: -23.5505, lng: -46.6333 };
+    let userSpeedKmh = 0;
+    let userHeading = 0;
+    let followUser = true;
+
+    let audioMode = 'all';
+    let lastSpokenRadarId = null;
+    let lastSpokenTime = 0;
+    let audioCtx = null;
+
+    let watchId = null;
+    let isTracking = false;
+    let isSimulating = false;
+    let simInterval = null;
+    let simPathIndex = 0;
+    let simSpeedKmh = 80;
+    let lastSimTime = 0;
+    let lastGpsPos = null;
+
+    const SIM_ROUTES = {
+      sp_marginal: {
+        name: 'Marginal Tietê + Pinheiros',
+        path: [
+          { lat: -23.5250, lng: -46.6200 },
+          { lat: -23.5182, lng: -46.6341 },
+          { lat: -23.5150, lng: -46.6450 },
+          { lat: -23.5123, lng: -46.6548 },
+          { lat: -23.5100, lng: -46.6700 },
+          { lat: -23.5350, lng: -46.7050 },
+          { lat: -23.5852, lng: -46.6914 },
+          { lat: -23.6125, lng: -46.6991 }
+        ]
+      },
+      sp_bandeirantes: {
+        name: 'Rod. dos Bandeirantes SP-348',
+        path: [
+          { lat: -23.4000, lng: -46.7800 },
+          { lat: -23.3289, lng: -46.8524 },
+          { lat: -23.2104, lng: -46.9142 },
+          { lat: -23.0500, lng: -47.0100 }
+        ]
+      },
+      pr_linhaverde: {
+        name: 'Linha Verde BR-476',
+        path: [
+          { lat: -25.4300, lng: -49.2200 },
+          { lat: -25.4618, lng: -49.2452 },
+          { lat: -25.4800, lng: -49.2600 },
+          { lat: -25.5124, lng: -49.2841 },
+          { lat: -25.5300, lng: -49.2980 }
+        ]
+      },
+      pr_br376: {
+        name: 'BR-376 Serra do Mar',
+        path: [
+          { lat: -25.5500, lng: -49.1900 },
+          { lat: -25.8821, lng: -49.0712 },
+          { lat: -25.9615, lng: -48.9612 },
+          { lat: -26.0100, lng: -48.9100 }
+        ]
+      },
+      sc_br101: {
+        name: 'BR-101 Itajaí → Floripa',
+        path: [
+          { lat: -26.9000, lng: -48.6750 },
+          { lat: -26.9381, lng: -48.6812 },
+          { lat: -27.0142, lng: -48.6214 },
+          { lat: -27.1041, lng: -48.6015 },
+          { lat: -27.4912, lng: -48.6541 },
+          { lat: -27.5852, lng: -48.6184 }
+        ]
+      },
+      sc_floripa: {
+        name: 'Via Expressa + Beira-Mar',
+        path: [
+          { lat: -27.5950, lng: -48.6200 },
+          { lat: -27.5912, lng: -48.5841 },
+          { lat: -27.5841, lng: -48.5512 },
+          { lat: -27.5214, lng: -48.5021 }
+        ]
+      }
+    };
+
+    // ==================== INICIALIZAÇÃO ====================
+    function initApp() {
+      loadStorage();
+      initLeafletMap();
+      setupEvents();
+      updateTable();
+      startUIUpdater();
+      checkIOSLocationHint();
+    }
+
+    function loadStorage() {
+      const saved = localStorage.getItem('radarbot_db_v2');
+      if (saved) {
+        try { radarDatabase = JSON.parse(saved); } catch (e) { radarDatabase = [...DEFAULT_RADARS]; }
+      } else {
+        radarDatabase = [...DEFAULT_RADARS];
+      }
+      document.getElementById('radar-count').textContent = radarDatabase.length;
+    }
+
+    function saveStorage() {
+      try {
+        localStorage.setItem('radarbot_db_v2', JSON.stringify(radarDatabase));
+      } catch (e) { console.warn('Storage cheio', e); }
+      document.getElementById('radar-count').textContent = radarDatabase.length;
+    }
+
+    function initLeafletMap() {
+      map = L.map('map', {
+        center: [userPosition.lat, userPosition.lng],
+        zoom: 13,
+        zoomControl: false,
+        attributionControl: false
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        subdomains: 'abcd'
+      }).addTo(map);
+
+      radarMarkersGroup = L.layerGroup().addTo(map);
+
+      const carIcon = L.divIcon({
+        className: 'custom-car-pin',
+        html: '<div id="car-arrow" style="font-size:16px;">🚗</div>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      });
+
+      userMarker = L.marker([userPosition.lat, userPosition.lng], { icon: carIcon, zIndexOffset: 1000 }).addTo(map);
+
+      userCircle = L.circle([userPosition.lat, userPosition.lng], {
+        radius: 600,
+        color: '#00f2fe',
+        weight: 1,
+        fillColor: '#00f2fe',
+        fillOpacity: 0.08
+      }).addTo(map);
+
+      renderMarkers();
+    }
+
+    function renderMarkers() {
+      if (!radarMarkersGroup) return;
+      radarMarkersGroup.clearLayers();
+      const filter = document.getElementById('state-filter').value;
+      const list = (filter === 'ALL') ? radarDatabase : radarDatabase.filter(r => r.state === filter);
+
+      list.forEach(radar => {
+        const pin = L.divIcon({
+          className: 'custom-radar-pin',
+          html: `<span style="font-size:10px; font-weight:700; color:#fff;">${radar.speed}</span>`,
+          iconSize: [26, 26],
+          iconAnchor: [13, 13]
+        });
+
+        const m = L.marker([radar.lat, radar.lng], { icon: pin });
+        m.bindPopup(`
+          <div style="color:#111; font-family:sans-serif;">
+            <b style="color:#e11d48;">${radar.type}: ${radar.speed} km/h</b><br>
+            <b>${radar.road}</b><br>
+            <span>${radar.city} - ${radar.state}</span>
+          </div>
+        `);
+        radarMarkersGroup.addLayer(m);
+      });
+    }
+
+    // ==================== DISTÂNCIA / RUMO ====================
+    function calcDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371e3;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
+      return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    }
+
+    function calcBearing(lat1, lon1, lat2, lon2) {
+      const φ1 = lat1 * Math.PI / 180;
+      const φ2 = lat2 * Math.PI / 180;
+      const Δλ = (lon2 - lon1) * Math.PI / 180;
+      const y = Math.sin(Δλ) * Math.cos(φ2);
+      const x = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
+      return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+    }
+
+    function headingCardinal(deg) {
+      const dirs = ['Norte', 'Nordeste', 'Leste', 'Sudeste', 'Sul', 'Sudoeste', 'Oeste', 'Noroeste'];
+      return dirs[Math.round(deg / 45) % 8];
+    }
+
+    // ==================== CHECK PROXIMIDADE ====================
+    function checkProximity() {
+      let closest = null;
+      let minDistance = Infinity;
+      let inRangeCount = 0;
+
+      radarDatabase.forEach(r => {
+        const dist = calcDistance(userPosition.lat, userPosition.lng, r.lat, r.lng);
+        if (dist <= 1500) inRangeCount++;
+        if (dist < minDistance) {
+          minDistance = dist;
+          closest = r;
+        }
+      });
+
+      document.getElementById('stat-nearby-count').textContent = inRangeCount;
+
+      const card = document.getElementById('radar-alert-card');
+      const sign = document.getElementById('sign-speed');
+      const title = document.getElementById('alert-title');
+      const loc = document.getElementById('alert-location');
+      const distEl = document.getElementById('dist-text');
+      const statusPill = document.getElementById('status-pill');
+      const diffText = document.getElementById('speed-diff-text');
+      const hudSpeed = document.getElementById('hud-speed');
+
+      if (closest && minDistance <= 850) {
+        sign.textContent = closest.speed;
+        title.textContent = `${closest.type.toUpperCase()}: ${closest.road}`;
+        loc.textContent = `${closest.city} - ${closest.state}`;
+        distEl.textContent = `Aproximando: ${Math.round(minDistance)} m`;
+
+        if (userSpeedKmh > closest.speed) {
+          const excess = Math.round(userSpeedKmh - closest.speed);
+          card.className = 'radar-alert-card danger';
+          statusPill.className = 'badge-label danger';
+          statusPill.textContent = 'PERIGO: REDUZA!';
+          diffText.textContent = `+${excess} km/h acima do limite`;
+          hudSpeed.className = 'speed-number overspeed';
+          soundOverspeed(closest);
+        } else {
+          card.className = 'radar-alert-card warning';
+          statusPill.className = 'badge-label warning';
+          statusPill.textContent = 'ATENÇÃO: RADAR';
+          diffText.textContent = `Velocidade segura (${Math.round(closest.speed - userSpeedKmh)} km/h abaixo)`;
+          hudSpeed.className = 'speed-number';
+          soundApproaching(closest, minDistance);
+        }
+      } else {
+        sign.textContent = '--';
+        title.textContent = 'Nenhum radar próximo';
+        loc.textContent = 'Rodovia monitorada via satélite';
+        distEl.textContent = 'Tráfego livre';
+        card.className = 'radar-alert-card';
+        statusPill.className = 'badge-label';
+        statusPill.textContent = 'VIA LIVRE';
+        diffText.textContent = '';
+        hudSpeed.className = 'speed-number';
+      }
+    }
+
+    // ==================== ÁUDIO ====================
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioClass) audioCtx = new AudioClass();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playBeepTone(freq, duration, count = 1) {
+      if (audioMode === 'mute') return;
+      initAudioContext();
+      if (!audioCtx) return;
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+          } catch(e) {}
+        }, i * (duration * 1000 + 80));
+      }
+    }
+
+    function speakAlert(text) {
+      if (audioMode !== 'all' || !('speechSynthesis' in window)) return;
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'pt-BR';
+        u.rate = 1.05;
+        const v = window.speechSynthesis.getVoices().find(voice => voice.lang.startsWith('pt'));
+        if (v) u.voice = v;
+        window.speechSynthesis.speak(u);
+      } catch(e) {}
+    }
+
+    function soundApproaching(radar, dist) {
+      const now = Date.now();
+      if (lastSpokenRadarId !== radar.id || (now - lastSpokenTime) > 25000) {
+        lastSpokenRadarId = radar.id;
+        lastSpokenTime = now;
+        playBeepTone(880, 0.15, 2);
+        const rounded = Math.round(dist / 50) * 50;
+        speakAlert(`Atenção: ${radar.type} à frente a ${rounded} metros. Limite de ${radar.speed} quilômetros por hora.`);
+      }
+    }
+
+    function soundOverspeed(radar) {
+      const now = Date.now();
+      if ((now - lastSpokenTime) > 7000) {
+        lastSpokenTime = now;
+        lastSpokenRadarId = radar.id;
+        playBeepTone(1200, 0.09, 4);
+        speakAlert(`Atenção! Reduza a velocidade! Limite de ${radar.speed} por hora.`);
+      }
+    }
+
+    // ==================== GPS REAL (com suporte iOS) ====================
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    function isSecureContextOk() {
+      return window.isSecureContext || location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    }
+
+    function checkIOSLocationHint() {
+      if (isIOS() && !localStorage.getItem('ios_hint_shown')) {
+        setTimeout(() => {
+          document.getElementById('ios-hint').classList.add('show');
+        }, 800);
+      }
+    }
+
+    function showGpsError(msg) {
+      const banner = document.getElementById('gps-error-banner');
+      banner.textContent = msg;
+      banner.classList.add('show');
+      setTimeout(() => banner.classList.remove('show'), 7000);
+    }
+
+    function toggleRealGPS() {
+      if (isTracking) {
+        if (watchId !== null) {
+          navigator.geolocation.clearWatch(watchId);
+          watchId = null;
+        }
+        isTracking = false;
+        updateGpsButtonState(false);
+        return;
+      }
+
+      if (!('geolocation' in navigator)) {
+        showGpsError('❌ Seu navegador não suporta GPS.');
+        return;
+      }
+
+      if (!isSecureContextOk()) {
+        showGpsError('⚠️ GPS requer HTTPS. Acesse por https:// ou localhost.');
+        return;
+      }
+
+      initAudioContext();
+
+      const opts = {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
+      };
+
+      // Primeiro tenta obter uma posição inicial (iOS exige isso para disparar o prompt)
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          applyGpsPosition(pos);
+          // Agora inicia o watch
+          watchId = navigator.geolocation.watchPosition(
+            applyGpsPosition,
+            onGpsError,
+            opts
+          );
+          isTracking = true;
+          updateGpsButtonState(true);
+          if (followUser) centerOnUser();
+        },
+        onGpsError,
+        opts
+      );
+    }
+
+    function updateGpsButtonState(active) {
+      const btn = document.getElementById('btn-toggle-gps');
+      const icon = document.getElementById('gps-icon');
+      const text = document.getElementById('gps-text');
+      if (active) {
+        btn.classList.remove('primary');
+        btn.classList.add('active-gps');
+        icon.textContent = '📍';
+        text.textContent = 'GPS Ativo';
+      } else {
+        btn.classList.add('primary');
+        btn.classList.remove('active-gps');
+        icon.textContent = '🛰️';
+        text.textContent = 'Iniciar GPS';
+      }
+    }
+
+    function onGpsError(err) {
+      let msg = '❌ Erro de GPS.';
+      switch (err.code) {
+        case 1:
+          msg = '🚫 Permissão de localização negada. Ative em Ajustes → Safari → Localização.';
+          break;
+        case 2:
+          msg = '📡 Sinal de GPS indisponível. Vá para área aberta.';
+          break;
+        case 3:
+          msg = '⏱️ Tempo esgotado ao obter GPS. Tente novamente.';
+          break;
+      }
+      showGpsError(msg);
+      isTracking = false;
+      updateGpsButtonState(false);
+    }
+
+    function applyGpsPosition(pos) {
+      const newLat = pos.coords.latitude;
+      const newLng = pos.coords.longitude;
+
+      // Calcula velocidade real (se disponível) ou derivada
+      let speed = 0;
+      if (pos.coords.speed !== null && pos.coords.speed !== undefined && !isNaN(pos.coords.speed)) {
+        speed = pos.coords.speed * 3.6;
+      } else if (lastGpsPos) {
+        const dt = (pos.timestamp - lastGpsPos.timestamp) / 1000;
+        if (dt > 0.5) {
+          const d = calcDistance(lastGpsPos.lat, lastGpsPos.lng, newLat, newLng);
+          speed = (d / dt) * 3.6;
+        }
+      }
+
+      // Suavização
+      userSpeedKmh = userSpeedKmh * 0.4 + speed * 0.6;
+      if (userSpeedKmh < 1) userSpeedKmh = 0;
+
+      // Rumo
+      if (lastGpsPos) {
+        const d = calcDistance(lastGpsPos.lat, lastGpsPos.lng, newLat, newLng);
+        if (d > 3) {
+          userHeading = calcBearing(lastGpsPos.lat, lastGpsPos.lng, newLat, newLng);
+        }
+      }
+
+      lastGpsPos = { lat: newLat, lng: newLng, timestamp: pos.timestamp };
+      userPosition = { lat: newLat, lng: newLng };
+
+      // Atualiza UI GPS
+      const acc = pos.coords.accuracy ? Math.round(pos.coords.accuracy) + ' m' : '--';
+      document.getElementById('stat-gps-acc').textContent = acc;
+      document.getElementById('stat-heading').textContent = headingCardinal(userHeading);
+
+      updateUserMarker();
+      checkProximity();
+    }
+
+    function updateUserMarker() {
+      if (!userMarker || !map) return;
+      const latlng = [userPosition.lat, userPosition.lng];
+      userMarker.setLatLng(latlng);
+      if (userCircle) userCircle.setLatLng(latlng);
+
+      // Gira o carro conforme o rumo
+      const arrow = document.getElementById('car-arrow');
+      if (arrow) arrow.style.transform = `rotate(${userHeading}deg)`;
+
+      if (followUser) {
+        map.panTo(latlng, { animate: true, duration: 0.4 });
+      }
+    }
+
+    function centerOnUser() {
+      if (!map) return;
+      map.setView([userPosition.lat, userPosition.lng], Math.max(map.getZoom(), 15), { animate: true });
+    }
+
+    // ==================== SIMULAÇÃO DE ROTA ====================
+    function startSimulation(routeKey) {
+      const route = SIM_ROUTES[routeKey];
+      if (!route) return;
+
+      stopSimulation(false);
+
+      isSimulating = true;
+      simPathIndex = 0;
+      lastSimTime = performance.now();
+
+      document.getElementById('sim-dock').style.display = 'flex';
+      document.getElementById('sim-route-name').textContent = route.name;
+      document.getElementById('sim-speed-slider').value = simSpeedKmh;
+      document.getElementById('sim-speed-val').textContent = simSpeedKmh + ' km/h';
+
+      // Desenha a linha da rota
+      if (routeLine) map.removeLayer(routeLine);
+      const latlngs = route.path.map(p => [p.lat, p.lng]);
+      routeLine = L.polyline(latlngs, {
+        color: '#00f2fe',
+        weight: 4,
+        opacity: 0.7,
+        dashArray: '8, 8'
+      }).addTo(map);
+
+      map.fitBounds(routeLine.getBounds(), { padding: [60, 60] });
+
+      // Posiciona o carro no início
+      userPosition = { lat: route.path[0].lat, lng: route.path[0].lng };
+      lastGpsPos = { ...userPosition, timestamp: Date.now() };
+      updateUserMarker();
+
+      // Loop de animação
+      simInterval = setInterval(simStep, 100);
+    }
+
+    function simStep() {
+      const route = SIM_ROUTES[document.querySelector('.btn-start-route')?.dataset.route];
+      const activeRouteKey = Object.keys(SIM_ROUTES).find(k => SIM_ROUTES[k].name === document.getElementById('sim-route-name').textContent);
+      if (!activeRouteKey) return;
+      const path = SIM_ROUTES[activeRouteKey].path;
+
+      const now = performance.now();
+      const dt = (now - lastSimTime) / 1000;
+      lastSimTime = now;
+
+      if (simPathIndex >= path.length - 1) {
+        // Chegou ao fim
+        userSpeedKmh = 0;
+        checkProximity();
+        return;
+      }
+
+      const from = path[simPathIndex];
+      const to = path[simPathIndex + 1];
+
+      const segDist = calcDistance(from.lat, from.lng, to.lat, to.lng);
+      const speedMs = simSpeedKmh / 3.6;
+      const stepDist = speedMs * dt;
+
+      const bearing = calcBearing(from.lat, from.lng, to.lat, to.lng);
+      userHeading = bearing;
+
+      const fraction = stepDist / segDist;
+      const currentLat = from.lat + (to.lat - from.lat) * Math.min(fraction, 1);
+      const currentLng = from.lng + (to.lng - from.lng) * Math.min(fraction, 1);
+
+      userSpeedKmh = simSpeedKmh;
+      userPosition = { lat: currentLat, lng: currentLng };
+
+      // Atualiza GPS precision simulada
+      document.getElementById('stat-gps-acc').textContent = '5 m (sim)';
+      document.getElementById('stat-heading').textContent = headingCardinal(userHeading);
+
+      if (fraction >= 1) simPathIndex++;
+
+      updateUserMarker();
+      checkProximity();
+    }
+
+    function stopSimulation(closeDock = true) {
+      isSimulating = false;
+      if (simInterval) { clearInterval(simInterval); simInterval = null; }
+      if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
+      if (closeDock) {
+        document.getElementById('sim-dock').style.display = 'none';
+      }
+      userSpeedKmh = 0;
+      document.getElementById('hud-speed').textContent = '0';
+    }
+
+    // ==================== MODAIS ====================
+    function openModal(id) {
+      document.getElementById(id).classList.add('open');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    // ==================== TABELA DE RADARES ====================
+    function updateTable() {
+      const tbody = document.getElementById('radar-table-body');
+      const query = (document.getElementById('radar-search')?.value || '').toLowerCase().trim();
+
+      let list = radarDatabase;
+      if (query) {
+        list = list.filter(r =>
+          r.id.toLowerCase().includes(query) ||
+          r.road.toLowerCase().includes(query) ||
+          r.city.toLowerCase().includes(query)
+        );
+      }
+
+      tbody.innerHTML = '';
+      list.slice(0, 500).forEach(r => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+        tr.innerHTML = `
+          <td style="padding: 6px 8px;"><span class="badge-state ${r.state}">${r.state}</span></td>
+          <td style="padding: 6px 8px; color: #fff;">${r.road}</td>
+          <td style="padding: 6px 8px; color: var(--text-muted);">${r.city}</td>
+          <td style="padding: 6px 8px; color: var(--accent-cyan); font-weight: 700;">${r.speed}</td>
+          <td style="padding: 6px 8px;">
+            <button class="btn-icon" style="padding: 2px 6px; font-size: 11px;" data-del="${r.id}">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      tbody.querySelectorAll('[data-del]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.del;
+          radarDatabase = radarDatabase.filter(x => x.id !== id);
+          saveStorage();
+          renderMarkers();
+          updateTable();
+        });
+      });
+    }
+
+    // ==================== IMPORT / EXPORT ====================
+    function importFile(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target.result;
+          let imported = [];
+          if (file.name.toLowerCase().endsWith('.json')) {
+            const data = JSON.parse(text);
+            imported = Array.isArray(data) ? data : (data.radars || []);
+          } else {
+            // CSV
+            const lines = text.split(/\r?\n/).filter(l => l.trim());
+            const header = lines[0].toLowerCase();
+            const sep = header.includes(';') ? ';' : ',';
+            const cols = lines[0].split(sep).map(s => s.trim().toLowerCase());
+            const idx = {
+              state: cols.findIndex(c => c.includes('state') || c === 'uf'),
+              road: cols.findIndex(c => c.includes('road') || c.includes('rodovia') || c.includes('via')),
+              city: cols.findIndex(c => c.includes('city') || c.includes('cidade') || c.includes('municipio')),
+              lat: cols.findIndex(c => c.includes('lat')),
+              lng: cols.findIndex(c => c.includes('lng') || c.includes('lon')),
+              speed: cols.findIndex(c => c.includes('speed') || c.includes('veloc') || c.includes('limite')),
+              type: cols.findIndex(c => c.includes('type') || c.includes('tipo'))
+            };
+            for (let i = 1; i < lines.length; i++) {
+              const parts = lines[i].split(sep);
+              const lat = parseFloat(parts[idx.lat]);
+              const lng = parseFloat(parts[idx.lng]);
+              if (isNaN(lat) || isNaN(lng)) continue;
+              imported.push({
+                id: `IMP-${Date.now()}-${i}`,
+                state: (parts[idx.state] || 'SP').trim().toUpperCase().slice(0, 2),
+                road: (parts[idx.road] || 'Via importada').trim(),
+                city: (parts[idx.city] || 'Desconhecida').trim(),
+                lat, lng,
+                speed: parseInt(parts[idx.speed]) || 60,
+                type: (parts[idx.type] || 'Fixo').trim()
+              });
+            }
+          }
+
+          if (imported.length === 0) {
+            alert('Nenhum radar válido encontrado no arquivo.');
+            return;
+          }
+
+          radarDatabase = radarDatabase.concat(imported);
+          saveStorage();
+          renderMarkers();
+          updateTable();
+          alert(`✅ ${imported.length} radares importados com sucesso!`);
+        } catch (err) {
+          console.error(err);
+          alert('Erro ao importar arquivo: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function downloadFile(filename, content, mime) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function exportJSON() {
+      downloadFile('radarbot_db.json', JSON.stringify(radarDatabase, null, 2), 'application/json');
+    }
+
+    function exportCSV() {
+      const header = 'state,road,city,lat,lng,speed,type';
+      const rows = radarDatabase.map(r =>
+        `${r.state},"${r.road}","${r.city}",${r.lat},${r.lng},${r.speed},${r.type}`
+      );
+      downloadFile('radarbot_db.csv', [header, ...rows].join('\n'), 'text/csv');
+    }
+
+    function resetDB() {
+      if (!confirm('Restaurar a base padrão? Todos os radares adicionados/importados serão removidos.')) return;
+      radarDatabase = [...DEFAULT_RADARS];
+      saveStorage();
+      renderMarkers();
+      updateTable();
+    }
+
+    // ==================== ADICIONAR RADAR MANUAL ====================
+    function saveNewRadar() {
+      const state = document.getElementById('new-state').value;
+      const type = document.getElementById('new-type').value;
+      const road = document.getElementById('new-road').value.trim();
+      const city = document.getElementById('new-city').value.trim();
+      const speed = parseInt(document.getElementById('new-speed').value);
+      const lat = parseFloat(document.getElementById('new-lat').value);
+      const lng = parseFloat(document.getElementById('new-lng').value);
+
+      if (!road || !city) { alert('Preencha rodovia e cidade.'); return; }
+      if (isNaN(lat) || isNaN(lng)) { alert('Informe latitude e longitude válidas.'); return; }
+
+      const newRadar = {
+        id: `USR-${Date.now()}`,
+        state, type, road, city, speed, lat, lng
+      };
+
+      radarDatabase.push(newRadar);
+      saveStorage();
+      renderMarkers();
+      updateTable();
+
+      document.getElementById('new-road').value = '';
+      document.getElementById('new-city').value = '';
+      document.getElementById('new-lat').value = '';
+      document.getElementById('new-lng').value = '';
+
+      closeModal('modal-add');
+    }
+
+    // ==================== UI UPDATER ====================
+    function startUIUpdater() {
+      setInterval(() => {
+        const hudSpeed = document.getElementById('hud-speed');
+        hudSpeed.textContent = Math.round(userSpeedKmh);
+
+        // Se estiver simulando, o checkProximity já é chamado no simStep
+        if (!isSimulating) {
+          checkProximity();
+        }
+      }, 400);
+    }
+
+    // ==================== EVENTOS ====================
+    function setupEvents() {
+      // Filtro de estado
+      document.getElementById('state-filter').addEventListener('change', renderMarkers);
+
+      // Áudio toggle (3 modos)
+      const audioBtn = document.getElementById('btn-audio-toggle');
+      audioBtn.addEventListener('click', () => {
+        if (audioMode === 'all') { audioMode = 'beep'; }
+        else if (audioMode === 'beep') { audioMode = 'mute'; }
+        else { audioMode = 'all'; }
+
+        const icon = document.getElementById('audio-icon');
+        const label = document.getElementById('audio-label');
+        if (audioMode === 'all') { icon.textContent = '🔊'; label.textContent = 'Voz Ativa'; audioBtn.classList.add('active'); }
+        else if (audioMode === 'beep') { icon.textContent = '🔉'; label.textContent = 'Só Bip'; audioBtn.classList.add('active'); }
+        else { icon.textContent = '🔇'; label.textContent = 'Mudo'; audioBtn.classList.remove('active'); }
+
+        initAudioContext();
+      });
+
+      // GPS
+      document.getElementById('btn-toggle-gps').addEventListener('click', toggleRealGPS);
+
+      // FABs
+      document.getElementById('fab-center').addEventListener('click', () => {
+        followUser = true;
+        centerOnUser();
+      });
+      document.getElementById('fab-route').addEventListener('click', () => openModal('modal-sim'));
+      document.getElementById('fab-add').addEventListener('click', () => {
+        document.getElementById('new-lat').value = userPosition.lat.toFixed(6);
+        document.getElementById('new-lng').value = userPosition.lng.toFixed(6);
+        openModal('modal-add');
+      });
+
+      // Botão simular rota
+      document.getElementById('btn-select-sim').addEventListener('click', () => openModal('modal-sim'));
+
+      // Botão encerrar simulação
+      document.getElementById('btn-stop-sim').addEventListener('click', () => stopSimulation(true));
+
+      // Slider de velocidade sim
+      const slider = document.getElementById('sim-speed-slider');
+      slider.addEventListener('input', () => {
+        simSpeedKmh = parseInt(slider.value);
+        document.getElementById('sim-speed-val').textContent = simSpeedKmh + ' km/h';
+      });
+
+      // Botões de rota
+      document.querySelectorAll('.btn-start-route').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.dataset.route;
+          closeModal('modal-sim');
+          startSimulation(key);
+        });
+      });
+
+      // Base de dados
+      document.getElementById('btn-open-db').addEventListener('click', () => openModal('modal-db'));
+      document.getElementById('file-import').addEventListener('change', (e) => {
+        if (e.target.files[0]) importFile(e.target.files[0]);
+        e.target.value = '';
+      });
+      document.getElementById('btn-export-json').addEventListener('click', exportJSON);
+      document.getElementById('btn-export-csv').addEventListener('click', exportCSV);
+      document.getElementById('btn-reset-db').addEventListener('click', resetDB);
+      document.getElementById('radar-search').addEventListener('input', updateTable);
+
+      // Salvar novo radar
+      document.getElementById('btn-save-radar').addEventListener('click', saveNewRadar);
+
+      // Fechar modais
+      document.querySelectorAll('.modal-close-btn').forEach(btn => {
+        btn.addEventListener('click', () => closeModal(btn.dataset.modal));
+      });
+      document.querySelectorAll('.modal-backdrop').forEach(mb => {
+        mb.addEventListener('click', (e) => {
+          if (e.target === mb) mb.classList.remove('open');
+        });
+      });
+
+      // iOS hint
+      document.getElementById('ios-hint-ok').addEventListener('click', () => {
+        localStorage.setItem('ios_hint_shown', '1');
+        document.getElementById('ios-hint').classList.remove('show');
+      });
+
+      // Ao mover o mapa, desativa o follow
+      map.on('dragstart', () => { followUser = false; });
+
+      // Resume audio em primeiro toque (política iOS)
+      document.body.addEventListener('touchstart', () => initAudioContext(), { once: true, passive: true });
+      document.body.addEventListener('click', () => initAudioContext(), { once: true });
+
+      // Preload vozes (iOS)
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => {};
+        window.speechSynthesis.getVoices();
+      }
+    }
+
+    // Inicializa quando DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', initApp);
+
+    // Salva contexto ao sair
+    window.addEventListener('beforeunload', () => {
+      if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+      stopSimulation();
+    });
+  </script>
+</body>
+</html>
