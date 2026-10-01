@@ -2,12 +2,13 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#090d16">
   <title>RadarBot Web - SP • PR • SC</title>
   
-  <!-- Leaflet CSS (Mapa Interativo) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <!-- Google Fonts: Chakra Petch (Display esportivo) & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -39,61 +40,43 @@
       color: var(--text-main);
       font-family: 'Inter', sans-serif;
       height: 100vh;
+      height: 100dvh;
       width: 100vw;
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    /* BARRA SUPERIOR */
     header {
       background: rgba(10, 15, 26, 0.95);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--bg-card-border);
       z-index: 1000;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .logo-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .logo-badge { display: flex; align-items: center; gap: 10px; }
 
     .radar-icon-pulse {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
+      width: 34px; height: 34px; border-radius: 50%;
       background: radial-gradient(circle, var(--accent-cyan) 0%, rgba(0, 242, 254, 0.15) 75%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
       font-size: 17px;
     }
 
-    .app-title {
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+    .app-title { font-family: 'Chakra Petch', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.5px; }
+    .app-subtitle { font-size: 10px; color: var(--accent-cyan); font-weight: 600; letter-spacing: 1px; }
 
-    .app-subtitle {
-      font-size: 10px;
-      color: var(--accent-cyan);
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .btn-icon {
       background: rgba(255, 255, 255, 0.06);
@@ -103,10 +86,9 @@
       border-radius: 8px;
       font-size: 13px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      display: flex; align-items: center; gap: 6px;
       transition: all 0.2s ease;
+      font-family: inherit;
     }
 
     .btn-icon:hover, .btn-icon.active {
@@ -115,45 +97,26 @@
       color: var(--accent-cyan);
     }
 
-    /* MAPA */
-    #app-container {
-      position: relative;
-      flex: 1;
-      width: 100%;
-      height: 100%;
-    }
+    #app-container { position: relative; flex: 1; width: 100%; height: 100%; }
+    #map { width: 100%; height:t 100%; z-index: 10rip; background: #090d16; }
 
-    #map {
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-    }
-
-    /* CARD DE ALERTA DE RADAR */
     .hud-overlay {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      right: 14px;
-      z-index: 500;
-      pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      position: absolute; top: -st14px; left: 14px; right: ats14px;
+      z-index: 500; pointer-events: none;
+      display: flex; flex-direction: column; gap: 10px;
     }
 
     .radar-alert-card {
       pointer-events: auto;
       background: var(--bg-card);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--bg-card-border);
       border-radius: 16px;
       padding: 12px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 10px;
     }
 
     .radar-alert-card.warning {
@@ -173,120 +136,75 @@
       50% { box-shadow: 0 0 45px rgba(239, 68, 68, 0.85); transform: scale(1.01); }
     }
 
-    .radar-info-block {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    .radar-info-block { display: flex; align-items: center; gap: 14px; min-width: 0; }
 
-    /* Placa de Trânsito de Velocidade */
     .traffic-sign-speed {
-      width: 56px;
-      height: 56px;
+      width: 56px; height: 56px;
       background: #ffffff;
       border: 6px solid #d90429;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-family: 'Chakra Petch', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: #111;
+      font-size: 24px; font-weight: 700; color: #111;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
       flex-shrink: 0;
     }
 
-    .radar-details {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .radar-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .radar-location {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
+    .radar-details { display: flex; flex-direction: column; min-width: 0; }
+    .radar-title { font-size: 14px; font-weight: 700; color: #fff; }
+    .radar-location { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
     .radar-dist-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent-cyan);
-      margin-top: 3px;
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 12px; font-weight: 600;
+      color: var(--accent-cyan); margin-top: 3px;
     }
 
     .badge-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+      font-weight: 700; padding: 4px 10px; border-radius: 20px;
       background: rgba(16, 185, 129, 0.2);
       color: var(--accent-green);
       border: 1px solid rgba(16, 185, 129, 0.3);
+      white-space: nowrap;
     }
-
     .badge-label.warning {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--accent-yellow);
+      background: rgba(245, 158, 11, { 0.2);
+      color: var(--accent display-yellow);
       border-color: rgba(245, 158, 11, 0.4);
     }
-
     .badge-label.danger {
       background: rgba(239, 68, 68, 0.25);
       color: #ff6b6b;
       border-color: rgba(239, 68, 68, 0.5);
     }
 
-    /* PAINEL INFERIOR: VELOCÍMETRO */
     .bottom-hud {
-      position: absolute;
-      bottom: 20px;
-      left: 14px;
-      right: 14px;
-      z-index: 500;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      position: absolute; bottom: 20px; left: 14px; right: 14px;
+      z-index: 500; display: flex; flex-direction: column; gap: 10px;
       pointer-events: none;
     }
 
     .dashboard-panel {
       pointer-events: auto;
       background: var(--bg-card);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--bg-card-border);
       border-radius: 20px;
       padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .speedometer-block {
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-    }
+    .speedometer-block { display: flex; align-items: baseline; gap: 6px; }
 
     .speed-number {
       font-family: 'Chakra Petch', sans-serif;
-      font-size: 56px;
-      font-weight: 700;
-      line-height: 1;
+      font-size: 56px; font-weight: 700; line-height: 1;
       color: #ffffff;
       text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+      transition: color 0.2s;
     }
 
     .speed-number.overspeed {
@@ -294,26 +212,10 @@
       text-shadow: 0 0 25px rgba(255, 71, 87, 0.8);
     }
 
-    .speed-unit {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+    .speed-unit { font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-    .trip-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .stat-val {
-      font-weight: 600;
-      color: #fff;
-    }
+    .: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text-muted); }
+    .stat-val { font-weight: 600; color: #fff; }
 
     .btn-hud-action {
       background: rgba(255, 255, 255, 0.08);
@@ -324,10 +226,10 @@
       font-weight: 600;
       font-size: 13px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: flex; align-items: center; gap: 8px;
       transition: all 0.2s ease;
+      font-family: inherit;
+      white-space: nowrap;
     }
 
     .btn-hud-action.primary {
@@ -343,92 +245,71 @@
       color: #fff;
     }
 
-    /* DOCK DE SIMULAÇÃO */
+    .btn-hud-action.danger {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #fff;
+    }
+
     .simulation-dock {
       pointer-events: auto;
       background: rgba(14, 20, 32, 0.95);
       border: 1px solid rgba(0, 242, 254, 0.3);
       border-radius: 14px;
       padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-wrap: wrap;
     }
 
-    /* BOTÕES FLUTUANTES NO MAPA */
     .map-fab-col {
-      position: absolute;
-      right: 14px;
-      bottom: 110px;
+      position: absolute; right: 14px; bottom: 110px;
       z-index: 500;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      display: flex; flex-direction: column; gap: 10px;
     }
 
     .fab-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+      width: 42px; height: 42px; border-radius: 50%;
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--bg-card-border);
       color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; cursor: pointer;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
-    /* MODAIS */
     .modal-backdrop {
       display: none;
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       z-index: 2000;
-      align-items: center;
-      justify-content: center;
+      align-items: center; justify-content: center;
       padding: 16px;
     }
+
+    .modal-backdrop.open { display: flex; }
 
     .modal-box {
       background: #101726;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
-      width: 100%;
-      max-width: 620px;
+      width: 100%; max-width: 620px;
       max-height: 85vh;
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
     }
 
     .modal-header {
       padding: 14px 18px;
       border-bottom: 1px solid var(--bg-card-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
     }
 
-    .modal-body {
-      padding: 18px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .modal-body { padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
 
     .modal-footer {
       padding: 12px 18px;
       border-top: 1px solid var(--bg-card-border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
+      display: flex; justify-content: flex-end; gap: 10px;
     }
 
     .form-control {
@@ -440,55 +321,92 @@
       font-size: 13px;
       outline: none;
       width: 100%;
+      font-family: inherit;
     }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .form-control option { background: #101726; color: #fff; }
 
-    .badge-state {
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-    .badge-state.SP { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-    .badge-state.PR { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-    .badge-state.SC { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .custom-radar-pin {
       background: #e11d48;
       border: 2px solid #ffffff;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(225, 29, 72, 0.6);
     }
 
     .custom-car-pin {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       background: var(--accent-cyan);
       border: 3px solid #ffffff;
       border-radius: 50%;
       box-shadow: 0 0 18px var(--accent-cyan);
-      display: flex;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .gps-error-banner {
+      position: absolute;
+      top: 14px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(239, 68, 68, 0.95);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 12px;
+      z-index: 3000;
+      display: none;
+      max-width: 90vw;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
+    }
+
+    .gps-error-banner.show { display: block; }
+
+    .ios-hint {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      z-index: 4000;
+      display: none;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
+
+    .ios-hint.show { display: flex; }
+
+    .ios-hint-box {
+      background: #101726;
+      border: 1px solid var(--accent-cyan);
+      border-radius: 18px;
+      padding: 24px;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .ios-hint-box h3 {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--accent-cyan);
+    }
+
+    .ios-hint-box p { font-size: 13px; line-height: 1.6; color: var(--text-muted); margin-bottom: 10px; }
+    .ios-hint-box ol { text-align: left; font-size: 13px; line-height: 1.7; color: var(--text-main); margin: 12px 0; padding-left: 20px; }
 
     @media (max-width: 640px) {
       .speed-number { font-size: 44px; }
       .trip-stats { display: none; }
       .app-title { font-size: 14px; }
+      .btn-hud-action { padding: 8px 12px; font-size: 12px; }
+      .traffic-sign-speed { width: 48px; height: 48px; font-size: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CABEÇALHO -->
   <header>
     <div class="logo-badge">
       <div class="radar-icon-pulse">📡</div>
@@ -499,7 +417,6 @@
     </div>
 
     <div class="header-actions">
-      <!-- Filtro por Estado -->
       <select id="state-filter" class="btn-icon" style="outline: none;">
         <option value="ALL">SP, PR e SC (Todos)</option>
         <option value="SP">São Paulo (SP)</option>
@@ -507,23 +424,21 @@
         <option value="SC">Santa Catarina (SC)</option>
       </select>
 
-      <!-- Toggle de Áudio e Voz -->
       <button id="btn-audio-toggle" class="btn-icon active" title="Alternar Voz e Bip">
         <span id="audio-icon">🔊</span> <span id="audio-label">Voz Ativa</span>
       </button>
 
-      <!-- Base de Dados -->
       <button id="btn-open-db" class="btn-icon" title="Gerenciar Base">
         📂 Base (<span id="radar-count">0</span>)
       </button>
     </div>
   </header>
 
-  <!-- MAPA E HUD -->
   <div id="app-container">
     <div id="map"></div>
 
-    <!-- Card de Alerta Superior -->
+    <div id="gps-error-banner" class="gps-error-banner"></div>
+
     <div class="hud-overlay">
       <div id="radar-alert-card" class="radar-alert-card">
         <div class="radar-info-block">
@@ -544,16 +459,13 @@
       </div>
     </div>
 
-    <!-- Botões Flutuantes do Mapa -->
     <div class="map-fab-col">
       <button id="fab-center" class="fab-btn" title="Centralizar no Carro">🎯</button>
       <button id="fab-route" class="fab-btn" title="Simular Rota">🛣️</button>
       <button id="fab-add" class="fab-btn" title="Adicionar Radar">➕</button>
     </div>
 
-    <!-- Painel Inferior: Velocímetro e Controles -->
     <div class="bottom-hud">
-      <!-- Barra do Modo Simulação -->
       <div id="sim-dock" class="simulation-dock" style="display: none;">
         <div style="font-size: 12px; color: var(--text-muted);">
           <span style="color: var(--accent-cyan); font-weight: bold;">SIMULAÇÃO ATIVA:</span>
@@ -566,7 +478,6 @@
         <button id="btn-stop-sim" class="btn-icon" style="padding: 4px 8px; font-size: 11px;">Encerrar</button>
       </div>
 
-      <!-- Dashboard Principal -->
       <div class="dashboard-panel">
         <div class="speedometer-block">
           <span id="hud-speed" class="speed-number">0</span>
@@ -591,7 +502,6 @@
     </div>
   </div>
 
-  <!-- MODAL: BASE DE DADOS E IMPORTADOR -->
   <div id="modal-db" class="modal-backdrop">
     <div class="modal-box">
       <div class="modal-header">
@@ -600,12 +510,12 @@
       </div>
       <div class="modal-body">
         <p style="font-size: 12px; color: var(--text-muted);">
-          Você pode importar arquivos <b>CSV</b> ou <b>JSON</b> do <b>Maparadar</b> ou de <b>Dados Abertos do DNIT/Governo</b> para expandir a lista com milhares de novos radares.
+          Importe arquivos <b>CSV</b> ou <b>JSON</b> do <b>Maparadar</b> ou de <b>Dados Abertos do DNIT/Governo</b> para expandir a lista.
         </p>
 
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <label class="btn-hud-action primary" style="cursor: pointer; padding: 7px 12px; font-size: 12px;">
-            📥 Importar Arquivo (CSV / JSON)
+            📥 Importar (CSV / JSON)
             <input type="file" id="file-import" accept=".csv, .json" style="display: none;">
           </label>
           <button id="btn-export-json" class="btn-hud-action" style="padding: 7px 12px; font-size: 12px;">📤 Exportar JSON</button>
@@ -618,12 +528,12 @@
         <div style="max-height: 250px; overflow-y: auto; border: 1px solid var(--bg-card-border); border-radius: 8px;">
           <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
             <thead>
-              <tr style="border-bottom: 1px solid var(--bg-card-border); color: var(--text-muted); text-align: left;">
-                <th style="padding: 6px 8px;">UF</th>
-                <th style="padding: 6px 8px;">Rodovia / Ponto</th>
-                <th style="padding: 6px 8px;">Cidade</th>
-                <th style="padding: 6px 8px;">Limite</th>
-                <th style="padding: 6px 8px;">Ação</th>
+              <tr style="border-bottom: 1px solid var(--bg-card-border); color: var(--text-muted); text-align: left; position: sticky; top: 0; background: #101726;">
+                <th style="padding: 8px;">UF</th>
+                <th style="padding: 8px;">Rodovia / Ponto</th>
+                <th style="padding: 8px;">Cidade</th>
+                <th style="padding: 8px;">Limite</th>
+                <th style="padding: 8px;">Ação</th>
               </tr>
             </thead>
             <tbody id="radar-table-body"></tbody>
@@ -636,7 +546,6 @@
     </div>
   </div>
 
-  <!-- MODAL: ESCOLHER ROTA DE SIMULAÇÃO -->
   <div id="modal-sim" class="modal-backdrop">
     <div class="modal-box" style="max-width: 480px;">
       <div class="modal-header">
@@ -672,7 +581,6 @@
     </div>
   </div>
 
-  <!-- MODAL: ADICIONAR NOVO RADAR -->
   <div id="modal-add" class="modal-backdrop">
     <div class="modal-box" style="max-width: 480px;">
       <div class="modal-header">
@@ -743,366 +651,26 @@
     </div>
   </div>
 
-  <!-- Leaflet JS -->
+  <div id="ios-hint" class="ios-hint">
+    <div class="ios-hint-box">
+      <h3>🛰️ Permissão de GPS</h3>
+      <p>Para o iPhone liberar sua localização, siga estes passos:</p>
+      <ol>
+        <li>Toque em <b>"Permitir"</b> quando o aviso do Safari aparecer</li>
+        <li>Se negou antes: <b>Ajustes → Safari → Localização → Permitir</b></li>
+        <li>Verifique também: <b>Ajustes → Privacidade → Serviços de Localização → Safari → Ao Usar o App</b></li>
+        <li>O site precisa estar em <b>HTTPS</b> (Safari bloqueia GPS em HTTP)</li>
+      </ol>
+      <button class="btn-hud-action primary" id="ios-hint-ok" style="width: 100%; justify-content: center; margin-top: 8px;">Entendi</button>
+    </div>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <script>
-    // --- BASE DE DADOS DOS RADARES DE SP, PR E SC ---
+    // ==================== BASE DE DADOS ====================
     const DEFAULT_RADARS = [
-      // SÃO PAULO (SP)
       { id: "SP-001", state: "SP", road: "Marginal Tietê (Pista Expressa)", city: "São Paulo", lat: -23.5182, lng: -46.6341, speed: 90, type: "Fixo" },
       { id: "SP-002", state: "SP", road: "Marginal Tietê (Pista Local - Ponte Casa Verde)", city: "São Paulo", lat: -23.5123, lng: -46.6548, speed: 50, type: "Fixo" },
       { id: "SP-003", state: "SP", road: "Marginal Pinheiros (Próx. Ponte Estaiada)", city: "São Paulo", lat: -23.6125, lng: -46.6991, speed: 70, type: "Fixo" },
-      { id: "SP-004", state: "SP", road: "Marginal Pinheiros (Pista Expressa - Cidade Jardim)", city: "São Paulo", lat: -23.5852, lng: -46.6914, speed: 90, type: "Fixo" },
-      { id: "SP-005", state: "SP", road: "Av. 23 de Maio (Viaduto Santa Generosa)", city: "São Paulo", lat: -23.5784, lng: -46.6432, speed: 60, type: "Fixo" },
-      { id: "SP-006", state: "SP", road: "Av. Paulista (Cruzamento Brigadeiro)", city: "São Paulo", lat: -23.5678, lng: -46.6491, speed: 50, type: "Semáforo" },
-      { id: "SP-007", state: "SP", road: "Rodovia dos Bandeirantes (SP-348 - km 28)", city: "Jundiaí", lat: -23.3289, lng: -46.8524, speed: 120, type: "Fixo" },
-      { id: "SP-008", state: "SP", road: "Rodovia dos Bandeirantes (SP-348 - km 56)", city: "Jundiaí", lat: -23.2104, lng: -46.9142, speed: 120, type: "Móvel" },
-      { id: "SP-009", state: "SP", road: "Rodovia Anhanguera (SP-330 - km 19)", city: "Osasco", lat: -23.4912, lng: -46.7791, speed: 100, type: "Fixo" },
-      { id: "SP-010", state: "SP", road: "Rodovia Anhanguera (SP-330 - km 95)", city: "Campinas", lat: -22.9351, lng: -47.0984, speed: 110, type: "Fixo" },
-      { id: "SP-011", state: "SP", road: "Rodovia Castelo Branco (SP-280 - km 23)", city: "Barueri", lat: -23.5061, lng: -46.8621, speed: 100, type: "Fixo" },
-      { id: "SP-012", state: "SP", road: "Rodovia Castelo Branco (SP-280 - km 48)", city: "Araçariguama", lat: -23.4357, lng: -47.0421, speed: 120, type: "Fixo" },
-      { id: "SP-013", state: "SP", road: "Rodovia Ayrton Senna (SP-070 - km 19)", city: "Guarulhos", lat: -23.4862, lng: -46.4674, speed: 120, type: "Fixo" },
-      { id: "SP-014", state: "SP", road: "Rodovia Ayrton Senna (SP-070 - km 38)", city: "Itaquaquecetuba", lat: -23.4795, lng: -46.3015, speed: 120, type: "Fixo" },
-      { id: "SP-015", state: "SP", road: "Rodovia Pres. Dutra (BR-116 - km 220)", city: "Guarulhos", lat: -23.4684, lng: -46.4912, speed: 90, type: "Fixo" },
-      { id: "SP-016", state: "SP", road: "Rodovia Pres. Dutra (BR-116 - km 152)", city: "São José dos Campos", lat: -23.2081, lng: -45.8821, speed: 110, type: "Fixo" },
-      { id: "SP-017", state: "SP", road: "Rodovia dos Imigrantes (SP-160 - km 16)", city: "Diadema", lat: -23.6841, lng: -46.6120, speed: 100, type: "Fixo" },
-      { id: "SP-018", state: "SP", road: "Rodovia dos Imigrantes (SP-160 - km 42 - Serra)", city: "São Bernardo", lat: -23.8612, lng: -46.5418, speed: 80, type: "Fixo" },
-      { id: "SP-019", state: "SP", road: "Rodovia Anchieta (SP-150 - km 31)", city: "São Bernardo", lat: -23.7745, lng: -46.5512, speed: 90, type: "Fixo" },
-      { id: "SP-020", state: "SP", road: "Rodovia Régis Bittencourt (BR-116 - km 280)", city: "Embu das Artes", lat: -23.6521, lng: -46.8512, speed: 80, type: "Fixo" },
-      { id: "SP-021", state: "SP", road: "Rodovia Régis Bittencourt (BR-116 - km 340)", city: "Miracatu", lat: -24.2814, lng: -47.4521, speed: 60, type: "Fixo" },
-      { id: "SP-022", state: "SP", road: "Rodovia Dom Pedro I (SP-065 - km 128)", city: "Campinas", lat: -22.8421, lng: -47.0315, speed: 110, type: "Fixo" },
-      
-      // PARANÁ (PR)
-      { id: "PR-001", state: "PR", road: "Linha Verde (BR-476 - km 138 Jardim Botânico)", city: "Curitiba", lat: -25.4618, lng: -49.2452, speed: 70, type: "Fixo" },
-      { id: "PR-002", state: "PR", road: "Linha Verde (BR-476 - Pinheirinho)", city: "Curitiba", lat: -25.5124, lng: -49.2841, speed: 70, type: "Fixo" },
-      { id: "PR-003", state: "PR", road: "BR-116 (Contorno Leste - km 88)", city: "São José dos Pinhais", lat: -25.5214, lng: -49.1984, speed: 100, type: "Fixo" },
-      { id: "PR-004", state: "PR", road: "BR-116 (Contorno Sul - km 112)", city: "Curitiba (CIC)", lat: -25.5342, lng: -49.3312, speed: 80, type: "Fixo" },
-      { id: "PR-005", state: "PR", road: "BR-277 (km 68 - Próx. Viaduto Afonso Pena)", city: "São José dos Pinhais", lat: -25.4842, lng: -49.1812, speed: 80, type: "Fixo" },
-      { id: "PR-006", state: "PR", road: "BR-277 (km 32 - Serra do Mar)", city: "Morretes", lat: -25.5512, lng: -48.8415, speed: 60, type: "Fixo" },
-      { id: "PR-007", state: "PR", road: "BR-277 (km 105 - Saída Ponta Grossa)", city: "Campo Largo", lat: -25.4312, lng: -49.5214, speed: 100, type: "Fixo" },
-      { id: "PR-008", state: "PR", road: "BR-376 (km 625 - Tijucas do Sul)", city: "Tijucas do Sul", lat: -25.8821, lng: -49.0712, speed: 80, type: "Fixo" },
-      { id: "PR-009", state: "PR", road: "BR-376 (km 668 - Curva da Santa / Serra)", city: "Guaratuba", lat: -25.9615, lng: -48.9612, speed: 60, type: "Fixo" },
-      { id: "PR-010", state: "PR", road: "Av. Comendador Franco (Av. das Torres)", city: "Curitiba", lat: -25.4715, lng: -49.2314, speed: 70, type: "Fixo" },
-      { id: "PR-011", state: "PR", road: "Av. Marechal Floriano Peixoto (Hauer)", city: "Curitiba", lat: -25.4795, lng: -49.2561, speed: 50, type: "Semáforo" },
-      { id: "PR-012", state: "PR", road: "BR-376 (Rodovia do Café - km 498)", city: "Ponta Grossa", lat: -25.1214, lng: -50.1415, speed: 100, type: "Fixo" },
-      { id: "PR-013", state: "PR", road: "BR-369 (km 154 - Acesso Cambé)", city: "Londrina", lat: -23.3012, lng: -51.2145, speed: 80, type: "Fixo" },
-      { id: "PR-014", state: "PR", road: "Av. Colombo (Cruzamento Mandacaru)", city: "Maringá", lat: -23.4112, lng: -51.9421, speed: 60, type: "Semáforo" },
-      { id: "PR-015", state: "PR", road: "BR-277 (Trecho Urbano - km 590)", city: "Cascavel", lat: -24.9781, lng: -53.4412, speed: 80, type: "Fixo" },
-      { id: "PR-016", state: "PR", road: "BR-277 (Portal de Entrada - km 725)", city: "Foz do Iguaçu", lat: -25.5120, lng: -54.5512, speed: 80, type: "Fixo" },
-
-      // SANTA CATARINA (SC)
-      { id: "SC-001", state: "SC", road: "BR-101 (km 25 - Acesso Norte Joinville)", city: "Joinville", lat: -26.2341, lng: -48.8651, speed: 80, type: "Fixo" },
-      { id: "SC-002", state: "SC", road: "BR-101 (km 43 - Eixo Sul Joinville)", city: "Joinville", lat: -26.3681, lng: -48.8412, speed: 100, type: "Fixo" },
-      { id: "SC-003", state: "SC", road: "BR-101 (km 113 - Travessia Navegantes)", city: "Navegantes", lat: -26.8841, lng: -48.6721, speed: 80, type: "Fixo" },
-      { id: "SC-004", state: "SC", road: "BR-101 (km 122 - Trevo de Itajaí)", city: "Itajaí", lat: -26.9381, lng: -48.6812, speed: 80, type: "Fixo" },
-      { id: "SC-005", state: "SC", road: "BR-101 (km 137 - Morro do Boi)", city: "Balneário Camboriú", lat: -27.0142, lng: -48.6214, speed: 80, type: "Fixo" },
-      { id: "SC-006", state: "SC", road: "BR-101 (km 149 - Túnel de Itapema)", city: "Itapema", lat: -27.1041, lng: -48.6015, speed: 80, type: "Fixo" },
-      { id: "SC-007", state: "SC", road: "BR-101 (km 198 - Trevo Biguaçu)", city: "Biguaçu", lat: -27.4912, lng: -48.6541, speed: 100, type: "Fixo" },
-      { id: "SC-008", state: "SC", road: "BR-101 (km 208 - Trevo Via Expressa)", city: "São José", lat: -27.5852, lng: -48.6184, speed: 80, type: "Fixo" },
-      { id: "SC-009", state: "SC", road: "BR-282 (Via Expressa Continental)", city: "Florianópolis", lat: -27.5912, lng: -48.5841, speed: 80, type: "Fixo" },
-      { id: "SC-010", state: "SC", road: "Av. Beira-Mar Norte (Próx. Trapiche)", city: "Florianópolis", lat: -27.5841, lng: -48.5512, speed: 80, type: "Fixo" },
-      { id: "SC-011", state: "SC", road: "SC-401 (km 8 - Próx. Cacupé)", city: "Florianópolis", lat: -27.5214, lng: -48.5021, speed: 80, type: "Fixo" },
-      { id: "SC-012", state: "SC", road: "SC-405 (Acesso Novo Campeche/Aeroporto)", city: "Florianópolis", lat: -27.6712, lng: -48.5142, speed: 60, type: "Fixo" },
-      { id: "SC-013", state: "SC", road: "BR-101 (km 218 - Trevo de Palhoça)", city: "Palhoça", lat: -27.6481, lng: -48.6651, speed: 80, type: "Fixo" },
-      { id: "SC-014", state: "SC", road: "BR-101 (km 233 - Morro dos Cavalos)", city: "Palhoça", lat: -27.7812, lng: -48.6384, speed: 60, type: "Fixo" },
-      { id: "SC-015", state: "SC", road: "BR-470 (km 54 - Acesso Blumenau)", city: "Blumenau", lat: -26.8512, lng: -49.0841, speed: 80, type: "Fixo" },
-      { id: "SC-016", state: "SC", road: "BR-280 (km 58 - Trecho Guaramirim)", city: "Guaramirim", lat: -26.4681, lng: -49.0015, speed: 80, type: "Fixo" },
-      { id: "SC-017", state: "SC", road: "BR-101 (km 338 - Travessia Tubarão)", city: "Tubarão", lat: -28.4712, lng: -49.0215, speed: 100, type: "Fixo" },
-      { id: "SC-018", state: "SC", road: "BR-101 (km 385 - Trevo Criciúma/Içara)", city: "Içara", lat: -28.7124, lng: -49.3014, speed: 110, type: "Fixo" },
-      { id: "SC-019", state: "SC", road: "BR-282 (km 540 - Trevo Chapecó)", city: "Chapecó", lat: -27.0851, lng: -52.6214, speed: 80, type: "Fixo" }
-    ];
-
-    let radarDatabase = [];
-    let map = null;
-    let radarMarkersGroup = null;
-    let userMarker = null;
-    let userCircle = null;
-
-    let userPosition = { lat: -23.5505, lng: -46.6333 };
-    let userSpeedKmh = 0;
-    let userHeading = 0;
-    let followUser = true;
-
-    let audioMode = 'all'; // 'all', 'beep', 'mute'
-    let lastSpokenRadarId = null;
-    let lastSpokenTime = 0;
-    let audioCtx = null;
-
-    let watchId = null;
-    let isTracking = false;
-    let isSimulating = false;
-    let simInterval = null;
-    let simRouteIndex = 0;
-    let currentSimPath = [];
-
-    // Rotas de simulação
-    const SIM_ROUTES = {
-      sp_marginal: [
-        { lat: -23.5250, lng: -46.6200 },
-        { lat: -23.5182, lng: -46.6341 }, // Radar 90 km/h
-        { lat: -23.5150, lng: -46.6450 },
-        { lat: -23.5123, lng: -46.6548 }, // Radar 50 km/h
-        { lat: -23.5100, lng: -46.6700 },
-        { lat: -23.5350, lng: -46.7050 },
-        { lat: -23.5852, lng: -46.6914 }, // Radar 90 km/h
-        { lat: -23.6125, lng: -46.6991 }  // Radar 70 km/h
-      ],
-      sp_bandeirantes: [
-        { lat: -23.4000, lng: -46.7800 },
-        { lat: -23.3289, lng: -46.8524 }, // Radar 120 km/h
-        { lat: -23.2104, lng: -46.9142 }, // Radar 120 km/h
-        { lat: -23.0500, lng: -47.0100 }
-      ],
-      pr_linhaverde: [
-        { lat: -25.4300, lng: -49.2200 },
-        { lat: -25.4618, lng: -49.2452 }, // Radar 70 km/h
-        { lat: -25.4800, lng: -49.2600 },
-        { lat: -25.5124, lng: -49.2841 }, // Radar 70 km/h
-        { lat: -25.5300, lng: -49.2980 }
-      ],
-      pr_br376: [
-        { lat: -25.5500, lng: -49.1900 },
-        { lat: -25.8821, lng: -49.0712 }, // Radar 80 km/h
-        { lat: -25.9615, lng: -48.9612 }, // Radar 60 km/h
-        { lat: -26.0100, lng: -48.9100 }
-      ],
-      sc_br101: [
-        { lat: -26.9000, lng: -48.6750 },
-        { lat: -26.9381, lng: -48.6812 }, // Radar Itajaí 80 km/h
-        { lat: -27.0142, lng: -48.6214 }, // Radar Morro do Boi 80 km/h
-        { lat: -27.1041, lng: -48.6015 }, // Radar Itapema 80 km/h
-        { lat: -27.4912, lng: -48.6541 }, // Radar Biguaçu 100 km/h
-        { lat: -27.5852, lng: -48.6184 }  // Radar São José 80 km/h
-      ],
-      sc_floripa: [
-        { lat: -27.5950, lng: -48.6200 },
-        { lat: -27.5912, lng: -48.5841 }, // Radar Via Expressa 80 km/h
-        { lat: -27.5841, lng: -48.5512 }, // Radar Beira-Mar 80 km/h
-        { lat: -27.5214, lng: -48.5021 }  // Radar SC-401 80 km/h
-      ]
-    };
-
-    function initApp() {
-      loadStorage();
-      initLeafletMap();
-      setupEvents();
-      updateTable();
-    }
-
-    function loadStorage() {
-      const saved = localStorage.getItem('radarbot_db_v2');
-      if (saved) {
-        try { radarDatabase = JSON.parse(saved); } catch (e) { radarDatabase = [...DEFAULT_RADARS]; }
-      } else {
-        radarDatabase = [...DEFAULT_RADARS];
-      }
-      document.getElementById('radar-count').textContent = radarDatabase.length;
-    }
-
-    function saveStorage() {
-      localStorage.setItem('radarbot_db_v2', JSON.stringify(radarDatabase));
-      document.getElementById('radar-count').textContent = radarDatabase.length;
-    }
-
-    function initLeafletMap() {
-      map = L.map('map', {
-        center: [userPosition.lat, userPosition.lng],
-        zoom: 13,
-        zoomControl: false,
-        attributionControl: false
-      });
-
-      // Tema Escuro (CartoDB Dark Matter)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19,
-        subdomains: 'abcd'
-      }).addTo(map);
-
-      radarMarkersGroup = L.layerGroup().addTo(map);
-
-      // Ícone do Veículo
-      const carIcon = L.divIcon({
-        className: 'custom-car-pin',
-        html: '<div id="car-arrow" style="font-size:16px;">🚗</div>',
-        iconSize: [32, 32],
-        iconAnchor: [16, 16]
-      });
-
-      userMarker = L.marker([userPosition.lat, userPosition.lng], { icon: carIcon, zIndexOffset: 1000 }).addTo(map);
-
-      userCircle = L.circle([userPosition.lat, userPosition.lng], {
-        radius: 600,
-        color: '#00f2fe',
-        weight: 1,
-        fillColor: '#00f2fe',
-        fillOpacity: 0.08
-      }).addTo(map);
-
-      renderMarkers();
-    }
-
-    function renderMarkers() {
-      radarMarkersGroup.clearLayers();
-      const filter = document.getElementById('state-filter').value;
-      const list = (filter === 'ALL') ? radarDatabase : radarDatabase.filter(r => r.state === filter);
-
-      list.forEach(radar => {
-        const pin = L.divIcon({
-          className: 'custom-radar-pin',
-          html: `<span style="font-size:10px; font-weight:700; color:#fff;">${radar.speed}</span>`,
-          iconSize: [26, 26],
-          iconAnchor: [13, 13]
-        });
-
-        const m = L.marker([radar.lat, radar.lng], { icon: pin });
-        m.bindPopup(`
-          <div style="color:#111; font-family:sans-serif;">
-            <b style="color:#e11d48;">${radar.type}: ${radar.speed} km/h</b><br>
-            <b>${radar.road}</b><br>
-            <span>${radar.city} - ${radar.state}</span>
-          </div>
-        `);
-        radarMarkersGroup.addLayer(m);
-      });
-    }
-
-    // Distância Haversine (metros)
-    function calcDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371e3;
-      const dLat = (lat2 - lat1) * Math.PI / 180;
-      const dLon = (lon2 - lon1) * Math.PI / 180;
-      const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLon/2)**2;
-      return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
-    }
-
-    // Ciclo de Verificação de Alertas
-    function checkProximity() {
-      let closest = null;
-      let minDistance = Infinity;
-      let inRangeCount = 0;
-
-      radarDatabase.forEach(r => {
-        const dist = calcDistance(userPosition.lat, userPosition.lng, r.lat, r.lng);
-        if (dist <= 1500) inRangeCount++;
-        if (dist < minDistance) {
-          minDistance = dist;
-          closest = r;
-        }
-      });
-
-      document.getElementById('stat-nearby-count').textContent = inRangeCount;
-
-      const card = document.getElementById('radar-alert-card');
-      const sign = document.getElementById('sign-speed');
-      const title = document.getElementById('alert-title');
-      const loc = document.getElementById('alert-location');
-      const distEl = document.getElementById('dist-text');
-      const statusPill = document.getElementById('status-pill');
-      const diffText = document.getElementById('speed-diff-text');
-      const hudSpeed = document.getElementById('hud-speed');
-
-      if (closest && minDistance <= 850) {
-        sign.textContent = closest.speed;
-        title.textContent = `${closest.type.toUpperCase()}: ${closest.road}`;
-        loc.textContent = `${closest.city} - ${closest.state}`;
-        distEl.textContent = `Aproximando: ${Math.round(minDistance)} m`;
-
-        if (userSpeedKmh > closest.speed) {
-          const excess = Math.round(userSpeedKmh - closest.speed);
-          card.className = 'radar-alert-card danger';
-          statusPill.className = 'badge-label danger';
-          statusPill.textContent = 'PERIGO: REDUZA!';
-          diffText.textContent = `+${excess} km/h acima do limite`;
-          hudSpeed.className = 'speed-number overspeed';
-
-          soundOverspeed(closest);
-        } else {
-          card.className = 'radar-alert-card warning';
-          statusPill.className = 'badge-label warning';
-          statusPill.textContent = 'ATENÇÃO: RADAR';
-          diffText.textContent = `Velocidade segura (${Math.round(closest.speed - userSpeedKmh)} km/h abaixo)`;
-          hudSpeed.className = 'speed-number';
-
-          soundApproaching(closest, minDistance);
-        }
-      } else {
-        sign.textContent = '--';
-        title.textContent = 'Nenhum radar próximo';
-        loc.textContent = 'Rodovia monitorada via satélite';
-        distEl.textContent = 'Tráfego livre';
-        card.className = 'radar-alert-card';
-        statusPill.className = 'badge-label';
-        statusPill.textContent = 'VIA LIVRE';
-        diffText.textContent = '';
-        hudSpeed.className = 'speed-number';
-      }
-    }
-
-    // Áudio e Voz Sintetizada
-    function initAudioContext() {
-      if (!audioCtx) {
-        const AudioClass = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioClass();
-      }
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-    }
-
-    function playBeepTone(freq, duration, count = 1) {
-      if (audioMode === 'mute') return;
-      initAudioContext();
-      for (let i = 0; i < count; i++) {
-        setTimeout(() => {
-          try {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-          } catch(e) {}
-        }, i * (duration * 1000 + 80));
-      }
-    }
-
-    function speakAlert(text) {
-      if (audioMode !== 'all' || !('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'pt-BR';
-      u.rate = 1.05;
-      const v = window.speechSynthesis.getVoices().find(voice => voice.lang.startsWith('pt'));
-      if (v) u.voice = v;
-      window.speechSynthesis.speak(u);
-    }
-
-    function soundApproaching(radar, dist) {
-      const now = Date.now();
-      if (lastSpokenRadarId !== radar.id || (now - lastSpokenTime) > 25000) {
-        lastSpokenRadarId = radar.id;
-        lastSpokenTime = now;
-        playBeepTone(880, 0.15, 2);
-        const rounded = Math.round(dist / 50) * 50;
-        speakAlert(`Atenção: ${radar.type} à frente a ${rounded} metros. Limite de ${radar.speed} quilômetros por hora.`);
-      }
-    }
-
-    function soundOverspeed(radar) {
-      const now = Date.now();
-      if ((now - lastSpokenTime) > 7000) {
-        lastSpokenTime = now;
-        lastSpokenRadarId = radar.id;
-        playBeepTone(1200, 0.09, 4);
-        speakAlert(`Atenção! Reduza a velocidade! Limite de ${radar.speed} por hora.`);
-      }
-    }
-
-    // GPS Real
-    function toggleRealGPS() {
-      if (isTracking) {
-        if (watchId !== null) navigator.geolocation.clearWatch(watchId);
-        isTracking = false;
-        document.
+      { id: "SP-004", state: "SP", road: "Marginal Pinheiros (Pista Expressa - Cidade Jardim)", city: "São
